@@ -1,0 +1,52 @@
+import RPi.GPIO as GPIO
+from time import sleep
+from datetime import datetime
+
+GPIO.setmode(GPIO.BOARD)
+ 
+GPIO.setwarnings(False)
+
+GPIO.setup(7, GPIO.OUT)
+
+def SatoshiSoda():
+
+    now = datetime.now()
+    cost = 3
+    print("Welcome to Satoshi Soda!  One soda costs"),(cost),("BTC.")
+
+    num = int(input("How many BTC did they pay?: "))
+    print("")
+
+    while(num < cost):
+        print("Not enough BTC. Please try again.")
+        print("")
+        print("Welcome to Satoshi Soda!  One soda costs 3 BTC.")
+        num = int(input("How many BTC did they pay?: "))
+        print("")
+
+    if(num == cost):
+        print("Now Vending...")
+        GPIO.output(7, True)
+        sleep(2.0)
+        GPIO.output(7, False)
+        print("Enjoy your fiat-free beverage!")
+        print "%s/%s/%s %s:%s" % (now.month, now.day, now.year, now.hour, now.minute)
+        print("")
+        print("")
+        print("")
+        
+    if(num > 3):
+        change = (num-cost)
+        print("Your change is"),(change),("BTC")
+        sleep(1.0)
+        print("Now Vending...")
+        GPIO.output(7, True)
+        sleep(2.0)
+        GPIO.output(7, False)
+        print("Enjoy your fiat-free beverage!")
+        print "%s/%s/%s %s:%s" % (now.month, now.day, now.year, now.hour, now.minute)
+        print("")
+        print("")
+        print("")
+        
+while(True): SatoshiSoda()
